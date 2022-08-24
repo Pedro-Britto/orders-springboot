@@ -3,7 +3,11 @@ package com.example.orders.entities;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import com.example.orders.entities.Product;
 
 @Entity
 @Table(name = "tb_category")
@@ -15,6 +19,9 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @Transient
+    private Set<Product> products = new HashSet<>();
 
     public Category() {
     }
@@ -39,7 +46,9 @@ public class Category implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
+    public Set<Product> getProducts() {
+        return products;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,4 +61,7 @@ public class Category implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
+
 }
